@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Expense>
+
+<table class="table table-striped table-bordered table-condensed">
+    <tr>
+        <th>Employee</th>
+        <th>Amount</th>
+        <th>Date of Event</th>
+    </tr>
+    @foreach (var expense in Model)
+    {
+        <tr>
+            <td>@expense.DepartmentEvent.Employee.FirstName @expense.DepartmentEvent.Employee.LastName</td>
+            <td>@expense.Amount</td>
+            <td>@expense.DepartmentEvent.DateOfEvent.ToString("yyyy-MM-dd")</td>
+        </tr>
+    }
+</table>

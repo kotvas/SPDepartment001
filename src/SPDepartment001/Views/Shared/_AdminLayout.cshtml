@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+    <link rel="stylesheet" asp-href-include="/lib/fontawesome/css/*.css" />
+    <title>SPDepartment Admin</title>
+</head>
+<body>
+    <div class="navbar navbar-inverse" role="navigation">
+        <a class="navbar-brand" href="#">SPDepartment Admin</a>
+        <div class="pull-right">
+            @await Component.InvokeAsync("UserInfo")
+            <a class="btn btn-sm btn-primary pull-right"
+               asp-action="Logout" asp-controller="Account">Log Out</a>
+        </div>
+    </div>
+    <div class="row panel">
+        <div id="categories" class="col-xs-3">
+            <a class="btn btn-block btn-default"
+               asp-action="Index"
+               asp-controller="UsersAdmin">Users</a>
+            <a class="btn btn-block btn-default"
+               asp-action="Index"
+               asp-controller="RolesAdmin">Roles</a>
+            <a class="btn btn-block btn-default"
+               asp-action="Index"
+               asp-controller="EmployeesAdmin">Employees</a>
+            <a class="btn btn-block btn-default"
+               asp-action="Index"
+               asp-controller="DepositsAdmin">Deposits</a>
+            <a class="btn btn-block btn-default"
+               asp-action="Index"
+               asp-controller="DepartmentEventsAdmin">Department Events</a>
+            <a class="btn btn-block btn-default"
+               asp-action="Index"
+               asp-controller="ExpensesAdmin">Expenses</a>
+        </div>
+        <div class="col-xs-8">
+            @if (TempData["message"] != null)
+            {
+                <div class="alert @Html.Raw(TempData["message"].ToString().Contains("Error") ? "alert-danger" : "alert-success")">@TempData["message"]</div>
+            }
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

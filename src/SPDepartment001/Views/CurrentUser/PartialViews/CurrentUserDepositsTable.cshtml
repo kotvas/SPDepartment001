@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Deposit>
+
+<table class="table table-striped table-bordered table-condensed">
+    <tr>
+        <th>Date</th>
+        <th>Amount</th>
+    </tr>
+    @foreach (var deposit in Model)
+    {
+        <tr>
+            <td>@deposit.Date.ToString("yyyy-MM-dd")</td>
+            <td>@deposit.Amount</td>
+        </tr>
+    }
+</table>

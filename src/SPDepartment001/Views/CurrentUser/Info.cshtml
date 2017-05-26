@@ -1,0 +1,94 @@
+﻿@model CurrentUserInfoViewModel
+
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3>User Info</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-4">
+                <h3>User Name:</h3>
+                @Model.AppUser.UserName
+            </div>
+            <div class="col-md-4">
+                <h3>User Email:</h3>
+                @Model.AppUser.Email
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
+
+    @if (Model.Employee == null)
+    {
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3>Employee Info</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    The user isn't associated with any Employee
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Model.Employee != null)
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3>Employee Info</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-4">
+                    <h3>First Name:</h3>
+                    @Model.Employee.FirstName
+                </div>
+                <div class="col-md-4">
+                    <h3>Last Name:</h3>
+                    @Model.Employee.LastName
+                </div>
+                <div class="col-md-4">
+                    <h3>Date Of Birth</h3>
+                    @Model.Employee.DateOfBirth.ToString("dd-MMM")
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3>Current Bill</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    @(Model.EmployeeAccount?.Amount ?? 0)
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3>Deposits</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    @Html.Partial("PartialViews/CurrentUserDepositsTable", @Model.Deposits)
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3>Not-Paid Expenses</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    @Html.Partial("PartialViews/CurrentUserExpensesTable", @Model.Expenses)
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@*<a asp-controller="Employee" asp-action="List" class="btn btn-default">Back to Home page</a>*@

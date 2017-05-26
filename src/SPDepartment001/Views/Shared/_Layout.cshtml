@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+    <link rel="stylesheet" asp-href-include="/lib/fontawesome/css/*.css" />
+    <title>SPDepartment</title>
+</head>
+<body>
+    <div class="navbar navbar-inverse" role="navigation">
+        <a class="navbar-brand" href="#">SPDepartment</a>
+        <div class="pull-right">
+            @*@await Component.InvokeAsync("UserInfo")*@
+            <a class="btn btn-sm btn-primary pull-right"
+               asp-action="Logout" asp-controller="Account">Log Out</a>
+        </div>
+    </div>
+    <div class="row panel">
+        <div id="categories" class="col-xs-3">
+            @*@await Component.InvokeAsync("NavigationMenu")*@
+        </div>
+        <div class="col-xs-8">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

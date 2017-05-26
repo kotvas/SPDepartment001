@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+    <link rel="stylesheet" asp-href-include="/lib/fontawesome/css/*.css" />
+    <title>SPDepartment</title>
+</head>
+<body>
+    <div class="navbar navbar-inverse" role="navigation">
+        <a class="navbar-brand" href="#">SPDepartment</a>
+        <div class="pull-right">
+        </div>
+    </div>
+    <div class="row panel">
+        <div id="categories" class="col-xs-3">
+        </div>
+        <div class="col-xs-8">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

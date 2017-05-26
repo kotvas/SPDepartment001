@@ -1,0 +1,35 @@
+﻿@model Employee
+@{
+    ViewBag.Title = ViewContext.ActionDescriptor.DisplayName + "Employee";
+}
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="EmployeeID" />
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <div><span asp-validation-for="FirstName" class="text-danger"></span></div>
+        <input asp-for="FirstName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <div><span asp-validation-for="LastName" class="text-danger"></span></div>
+        <input asp-for="LastName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DateOfBirth"></label>
+        <div><span asp-validation-for="DateOfBirth" class="text-danger"></span></div>
+        <input asp-for="DateOfBirth" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="AssociatedUserId"></label>
+        <select class="form-control"
+                asp-for="AssociatedUserId"
+                asp-items="ViewBag.Users">
+            <option disabled selected value="">Select a User</option>
+        </select>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a asp-action="Index" class="btn btn-default">Cancel</a>
+    </div>
+</form>

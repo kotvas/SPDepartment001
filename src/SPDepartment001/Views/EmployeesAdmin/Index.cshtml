@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Employee>
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<table class="table table-striped table-bordered table-condensed">
+    <tr>
+        <th class="text-right">ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Date Of Birth</th>
+        <th>Has Associated User</th>
+        <th class="text-center">Actions</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-right">@item.EmployeeID</td>
+            <td>@item.FirstName</td>
+            <td>@item.LastName</td>
+            <td>@item.DateOfBirth.ToString("dd-MM")</td>
+            <td>@(item.AssociatedUserId != new Guid())</td>
+            <td class="text-center">
+                <form asp-action="Delete" method="post">
+                    <a asp-action="Edit" class="btn btn-sm btn-warning"
+                       asp-route-employeeId="@item.EmployeeID">
+                        Edit
+                    </a>
+                    <input type="hidden" name="EmployeeID" value="@item.EmployeeID" />
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+<div class="text-center">
+    <a asp-action="Create" class="btn btn-primary">Add Employee</a>
+</div>

@@ -1,0 +1,15 @@
+﻿@model EmployeesListViewModel
+
+@foreach (var empl in Model.Employees)
+{
+    <div>
+        <h3>@empl.FirstName @empl.LastName</h3>
+        <h4>@empl.DateOfBirth</h4>
+    </div>
+}
+
+<div page-model="@Model.PagingInfo" page-action="List" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-default"
+     page-class-selected="btn-primary" class="btn-group pull-right">
+</div>
+
