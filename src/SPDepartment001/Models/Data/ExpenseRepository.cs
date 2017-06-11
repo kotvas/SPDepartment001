@@ -60,7 +60,7 @@ namespace SPDepartment001.Models.Data
             var result = false;
 
             var employeeEvent = context.DepartmentEvents.FirstOrDefault(e => e.Id == departmentEventId);
-            var employees = context.Employees.Where(e => e.EmployeeID != employeeEvent.EmployeeId).ToList();
+            var employees = context.Employees.Where(e => e.IsActive && e.EmployeeID != employeeEvent.EmployeeId).ToList();
 
             DateTime currentDate = DateTime.Now;
 

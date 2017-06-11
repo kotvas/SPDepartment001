@@ -1,0 +1,52 @@
+﻿@model AddExpensesViewModel
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="bg-primary panel-body"><h4>Add Expenses for @Model.DepartmentEvent?.Employee?.FirstName @Model.DepartmentEvent?.Employee?.LastName</h4></div>
+
+<form asp-action="AddExpenses" method="post">
+    <input type="hidden" name="departmentEventId" value="@Model.DepartmentEvent.Id" />
+
+
+
+    <h6 class="bg-info panel-body">Not Added Employees:</h6>
+    <table class="table table-bordered table-condensed">
+        @if (Model.NotAddedEmployees.Count() == 0)
+        {
+            <tr><td colspan="2">All Employees Are Added</td></tr>
+        }
+        else
+        {
+            @foreach (Employee empl in Model.NotAddedEmployees)
+            {
+                <tr>
+                    <td>@empl.FirstName @empl.LastName</td>
+                    <td>
+                        <input type="checkbox" name="IdsToAdd" value="@empl.EmployeeID">
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <h6 class="bg-info panel-body">Added Employees:</h6>
+    <table class="table table-bordered table-condensed">
+        @if (Model.AddedEmployees.Count() == 0)
+        {
+            <tr><td colspan="2">No Employees Are Added</td></tr>
+        }
+        else
+        {
+            @foreach (Employee empl in Model.AddedEmployees)
+            {
+                <tr>
+                    <td>@empl?.FirstName @empl?.LastName</td>
+                </tr>
+            }
+        }
+    </table>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" asp-controller="DepartmentEventsAdmin" class="btn btn-default">Cancel</a>
+</form>

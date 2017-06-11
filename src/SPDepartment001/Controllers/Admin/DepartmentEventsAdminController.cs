@@ -63,10 +63,19 @@ namespace SPDepartment001.Controllers.Admin
         [HttpPost]
         public IActionResult Delete(Guid departmentEventId)
         {
-            DepartmentEvent deleteddepartmentEvent = departmentEventRepository.DeleteDepartmentEvent(departmentEventId);
-            if (deleteddepartmentEvent != null)
+            DepartmentEvent departmentEvent = departmentEventRepository.DepartmentEvents.FirstOrDefault(dE => dE.Id == departmentEventId);
+            IEnumerable<Expense> existingExpenses = expenseRepository.Expenses.Where(e => e.DepartmentEventId == departmentEventId);
+            if (existingExpenses.Count() == 0)
             {
-                //TempData["message"] = $"{deletedEmployee.FirstName} {deletedEmployee.LastName} was deleted";
+                DepartmentEvent deleteddepartmentEvent = departmentEventRepository.DeleteDepartmentEvent(departmentEventId);
+                if (deleteddepartmentEvent != null)
+                {
+                    TempData["message"] = $"Department Event for {deleteddepartmentEvent.Employee.FirstName} {deleteddepartmentEvent.Employee.LastName} was deleted";
+                }
+            }
+            else
+            {
+                TempData["message"] = $"Error: Department Event for {departmentEvent.Employee.FirstName} {departmentEvent.Employee.LastName} can't be deleted. There are existings expenses.";
             }
             return RedirectToAction("Index");
         }
@@ -86,7 +95,7 @@ namespace SPDepartment001.Controllers.Admin
             }
             else
             {
-                TempData["message"] = $"Expenses weren't generated. Please try again";
+                TempData["message"] = $"Error: Expenses weren't generated. Please try again";
             }
 
             return RedirectToAction("Index");

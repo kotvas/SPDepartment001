@@ -4,6 +4,32 @@
     Layout = "_AdminLayout";
 }
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-1">
+            <span>Filter:</span>
+        </div>
+        <div class="col-sm-1">
+            <a class="btn btn-default"
+               asp-action="Index"
+               asp-controller="ExpensesAdmin"
+               asp-route-filterStatus="">
+                All
+            </a>
+        </div>
+        <div class="col-sm-1">
+            <a class="btn btn-default"
+               asp-action="Index"
+               asp-controller="ExpensesAdmin"
+               asp-route-filterStatus="notpaid">
+                Not-Paid
+            </a>
+        </div>
+    </div>
+</div>
+
+<br />
+
 <table class="table table-striped table-bordered table-condensed">
     <tr>
         <th>Employee Event</th>
@@ -17,8 +43,8 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.DepartmentEvent.Employee.FirstName @item.DepartmentEvent.Employee.LastName</td>
-            <td>@item.Employee.FirstName @item.Employee.LastName</td>
+            <td>@item.DepartmentEvent.Employee?.FirstName @item.DepartmentEvent.Employee?.LastName</td>
+            <td>@item.Employee?.FirstName @item.Employee?.LastName</td>
             <td>@item.Amount</td>
             <td>@item.DepartmentEvent.DateOfEvent</td>
             <td>@item.DateOfPayment</td>

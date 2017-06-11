@@ -27,14 +27,14 @@ namespace SPDepartment001.Models.Data
             }
             else
             {
-                //Deposit dbEntry = context.Deposits
-                //    .FirstOrDefault(d => d.Id == deposit.Id);
-                //if (dbEntry != null)
-                //{
-                //    dbEntry.Amount = deposit.Amount;
+                DepartmentEvent dbEntry = context.DepartmentEvents
+                    .FirstOrDefault(dE => dE.Id == departmentEvent.Id);
+                if (dbEntry != null)
+                {
+                    dbEntry.AreExpensesGenerated = departmentEvent.AreExpensesGenerated;
                 //    dbEntry.EmployeeId = deposit.EmployeeId;
                 //    dbEntry.Employee = deposit.Employee;
-                //}
+                }
             }
             context.SaveChanges();
         }

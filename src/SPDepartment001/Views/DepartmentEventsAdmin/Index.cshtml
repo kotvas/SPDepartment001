@@ -31,11 +31,15 @@
                         </button>
                     </form>
                 }
+                @* Add Expenses *@
+                <a class="btn btn-default"
+                   asp-action="AddExpenses"
+                   asp-controller="ExpensesAdmin"
+                   asp-route-departmentEventId="@item.Id">
+                    Add Expenses
+                </a>
+                @* Delete Department Event *@
                 <form asp-action="Delete" method="post">
-                    @*<a asp-action="Edit" class="btn btn-sm btn-warning"
-                           asp-route-employeeId="@item.EmployeeID">
-                            Edit
-                        </a>*@
                     <input type="hidden" name="DepartmentEventID" value="@item.Id" />
                     <button type="submit" class="btn btn-danger btn-sm">
                         Delete
