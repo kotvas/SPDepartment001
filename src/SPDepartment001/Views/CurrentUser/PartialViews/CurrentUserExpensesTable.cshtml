@@ -5,6 +5,7 @@
         <th>Employee</th>
         <th>Amount</th>
         <th>Date of Event</th>
+        <th></th>
     </tr>
     @foreach (var expense in Model)
     {
@@ -12,6 +13,18 @@
             <td>@expense.DepartmentEvent.Employee.FirstName @expense.DepartmentEvent.Employee.LastName</td>
             <td>@expense.Amount</td>
             <td>@expense.DepartmentEvent.DateOfEvent.ToString("yyyy-MM-dd")</td>
+            <td class="text-center">
+                @if (!expense.IsPaid)
+                {
+                    <form asp-controller="ExpensesAdmin" asp-action="Pay" method="post">
+                        <input type="hidden" name="ExpenseID" value="@expense.Id" />
+                        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            Pay
+                        </button>
+                    </form>
+                }
+            </td>
         </tr>
     }
 </table>

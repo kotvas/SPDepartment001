@@ -65,15 +65,15 @@ namespace SPDepartment001
         {
             loggerFactory.AddConsole();
 
-            if (env.IsDevelopment())
+            //if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseStatusCodePages();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
+            //else
+            //{
+            //    app.UseExceptionHandler("/Error");
+            //}
 
             app.UseStaticFiles();
             app.UseSession();
@@ -87,8 +87,8 @@ namespace SPDepartment001
                     template: "{controller=CurrentUser}/{action=Info}/{id?}");
             });
 
-            AppIdentityDbContext.CreateAdminAccount(app.ApplicationServices, Configuration).Wait();
-            SeedEmployeeUserData.EnsurePopulated(app);
+            //AppIdentityDbContext.CreateAdminAccount(app.ApplicationServices, Configuration).Wait();
+            //SeedEmployeeUserData.EnsurePopulated(app);
         }
     }
 }

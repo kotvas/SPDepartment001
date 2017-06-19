@@ -21,6 +21,10 @@
             @*@await Component.InvokeAsync("NavigationMenu")*@
         </div>
         <div class="col-xs-8">
+            @if (TempData["message"] != null)
+            {
+                <div class="alert @Html.Raw(TempData["message"].ToString().Contains("Error") ? "alert-danger" : "alert-success")">@TempData["message"]</div>
+            }
             @RenderBody()
         </div>
     </div>

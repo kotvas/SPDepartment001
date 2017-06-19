@@ -51,8 +51,8 @@ namespace SPDepartment001.Controllers
                 {
                     currentUserInfo.Employee = employee;
                     currentUserInfo.EmployeeAccount = employeeAccountRepository.EmployeesAccounts.Where(ea => ea.EmployeeId == employee.EmployeeID).FirstOrDefault();
-                    currentUserInfo.Deposits = depositRepository.Deposits.Where(d => d.EmployeeId == employee.EmployeeID);
-                    currentUserInfo.Expenses = expenseRepository.Expenses.Where(e => e.EmployeeId == employee.EmployeeID && !e.IsPaid);
+                    currentUserInfo.Deposits = depositRepository.Deposits.Where(d => d.EmployeeId == employee.EmployeeID).OrderByDescending(d => d.Date);
+                    currentUserInfo.Expenses = expenseRepository.Expenses.Where(e => e.EmployeeId == employee.EmployeeID && !e.IsPaid).OrderByDescending(e => e.DepartmentEvent.DateOfEvent);
                 }
             }
 

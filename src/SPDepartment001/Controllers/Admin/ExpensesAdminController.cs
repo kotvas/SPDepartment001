@@ -12,7 +12,7 @@ using SPDepartment001.Models.ViewModels;
 
 namespace SPDepartment001.Controllers.Admin
 {
-    [Authorize(Roles = "Admins")]
+    [Authorize(Roles = "Admins,Users")]
     public class ExpensesAdminController : Controller
     {
         private IEmployeeRepository emplRepository;
@@ -31,16 +31,19 @@ namespace SPDepartment001.Controllers.Admin
             employeeAccountRepository = emplAccountRepository;
         }
 
+        [Authorize(Roles = "Admins")]
         public ViewResult Index(string filterStatus)
             => View(expenseRepository.Expenses
                 .Where(e => filterStatus == null || (filterStatus == "notpaid" && !e.IsPaid)));
 
+        [Authorize(Roles = "Admins")]
         public ViewResult Create()
         {
             //PopulateViewBagEmployees();
             return View("Edit", new Expense());
         }
 
+        [Authorize(Roles = "Admins")]
         public ViewResult Edit(Guid expenseId)
         {
             //PopulateViewBagEmployees();
@@ -49,6 +52,7 @@ namespace SPDepartment001.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admins")]
         public IActionResult Edit(Expense expense)
         {
             if (ModelState.IsValid)
@@ -66,14 +70,31 @@ namespace SPDepartment001.Controllers.Admin
         }
 
         [HttpPost]
-        public IActionResult Delete(Guid expenseId)
+        [Authorize(Roles = "Admins")]
+        public IActionResult Delete(Guid expenseId, string returnUrl)
         {
-            Expense deletedExpense = expenseRepository.DeleteExpense(expenseId);
-            if (deletedExpense != null)
+            Expense expenseToDelete = expenseRepository.Expenses.FirstOrDefault(e => e.Id == expenseId);
+            if (expenseToDelete != null)
             {
-                //TempData["message"] = $"{deletedEmployee.FirstName} {deletedEmployee.LastName} was deleted";
+                bool isPaid = expenseToDelete.IsPaid;
+                if (!isPaid)
+                {
+                    Expense deletedExpense = expenseRepository.DeleteExpense(expenseId);
+                    if (deletedExpense != null)
+                    {
+                        TempData["message"] = $"Expense was deleted";
+                    }
+                }
+                else
+                {
+                    TempData["message"] = $"Error: The Expense can't be removed. The expense is already paid.";
+                }
             }
-            return RedirectToAction("Index");
+            else
+            {
+                TempData["message"] = $"Error: The Expense wasn't found.";
+            }
+            return RedirectToAction("Index", new { returnUrl });
         }
 
         //private void PopulateViewBagEmployees()
@@ -82,7 +103,8 @@ namespace SPDepartment001.Controllers.Admin
         //}
 
         [HttpPost]
-        public IActionResult Pay(Guid expenseId)
+        [Authorize(Roles = "Admins,Users")]
+        public IActionResult Pay(Guid expenseId, string returnUrl)
         {
             Expense expense = expenseRepository.Expenses.Where(e => e.Id == expenseId).FirstOrDefault();
             if (expense?.Id != new Guid())
@@ -105,9 +127,12 @@ namespace SPDepartment001.Controllers.Admin
                 TempData["message"] = $"Error: Expense for {expense.Employee.FirstName} {expense.Employee.LastName} wasn't found";
             }
 
-            return RedirectToAction("Index");
+            return Redirect(returnUrl);
+
+            //return RedirectToAction("Index", new { filterStatus="notpaid" });
         }
 
+        [Authorize(Roles = "Admins")]
         public ViewResult AddExpenses(Guid departmentEventId)
         {
             DepartmentEvent departmentEvent = departmentEventRepository.DepartmentEvents.Where(dE => dE.Id == departmentEventId).FirstOrDefault();
@@ -124,6 +149,7 @@ namespace SPDepartment001.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admins")]
         public IActionResult AddExpenses(AddExpensesModificationModel model)
         {
             bool isExpenseCreated = false;

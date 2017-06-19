@@ -23,5 +23,7 @@ namespace SPDepartment001.Models
         public decimal AmountOfEmployee { get; set; } = 75;
 
         public bool AreExpensesGenerated { get; set; } = false;
+
+        public string Description { get; set; } = "";
     }
 }

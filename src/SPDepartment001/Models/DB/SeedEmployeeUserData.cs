@@ -25,7 +25,7 @@ namespace SPDepartment001.Models.DB
             AddEmployee(context, userManager, GetEmployee("Alex", "Kucherenko", new DateTime(2000, 9, 23)));
             AddEmployee(context, userManager, GetEmployee("Alexander", "Smirnov", new DateTime(2000, 6, 20)));
             AddEmployee(context, userManager, GetEmployee("Alexandra", "Volohova", new DateTime(2000, 5, 6)));
-            AddEmployee(context, userManager, GetEmployee("Andrey", "Simonenko", new DateTime(2000, 6, 14)));
+            AddEmployee(context, userManager, GetEmployee("Andrey", "Simonenko", new DateTime(2000, 1, 14)));
             AddEmployee(context, userManager, GetEmployee("Anna", "Kuzochkina", new DateTime(2000, 12, 22)));
             AddEmployee(context, userManager, GetEmployee("Anna", "Skaletskaya", new DateTime(2000, 8, 12)));
             AddEmployee(context, userManager, GetEmployee("Artem", "Ivchenko", new DateTime(2000, 8, 11)));

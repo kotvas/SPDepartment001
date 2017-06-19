@@ -54,17 +54,19 @@
                 {
                     <form asp-action="Pay" method="post">
                         <input type="hidden" name="ExpenseID" value="@item.Id" />
+                        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
                         <button type="submit" class="btn btn-danger btn-sm">
                             Pay
                         </button>
                     </form>
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="ExpenseID" value="@item.Id" />
+                        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            Delete
+                        </button>
+                    </form>
                 }
-                <form asp-action="Delete" method="post">
-                    <input type="hidden" name="ExpenseID" value="@item.Id" />
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        Delete
-                    </button>
-                </form>
             </td>
         </tr>
     }
