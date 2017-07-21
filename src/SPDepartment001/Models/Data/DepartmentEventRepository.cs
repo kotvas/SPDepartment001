@@ -31,9 +31,12 @@ namespace SPDepartment001.Models.Data
                     .FirstOrDefault(dE => dE.Id == departmentEvent.Id);
                 if (dbEntry != null)
                 {
-                    dbEntry.AreExpensesGenerated = departmentEvent.AreExpensesGenerated;
-                //    dbEntry.EmployeeId = deposit.EmployeeId;
-                //    dbEntry.Employee = deposit.Employee;
+                    //dbEntry.AreExpensesGenerated = departmentEvent.AreExpensesGenerated;
+                    //    dbEntry.EmployeeId = deposit.EmployeeId;
+                    //    dbEntry.Employee = deposit.Employee;
+                    dbEntry.Description = departmentEvent.Description;
+                    dbEntry.DateOfEvent = departmentEvent.DateOfEvent;
+                    dbEntry.AmountOfEmployee = departmentEvent.AmountOfEmployee;
                 }
             }
             context.SaveChanges();
