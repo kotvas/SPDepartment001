@@ -38,7 +38,9 @@ namespace SPDepartment001.Controllers.Admin
 
         public ViewResult Edit(Guid departmentEventId)
         {
-            PopulateViewBagEmployees();
+            var departmentEvent = departmentEventRepository.DepartmentEvents.FirstOrDefault(de => de.Id == departmentEventId);
+
+            PopulateViewBagEmployees(departmentEvent.Employee.EmployeeID);
 
             return View(departmentEventRepository.DepartmentEvents.FirstOrDefault(de => de.Id == departmentEventId));
         }
@@ -48,8 +50,19 @@ namespace SPDepartment001.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
+                if (departmentEvent.AreExpensesGenerated)
+                {
+                    DepartmentEvent savedDepartmentEvent = departmentEventRepository.DepartmentEvents.FirstOrDefault(dE => dE.Id == departmentEvent.Id);
+                    departmentEvent.Employee = savedDepartmentEvent.Employee;
+                    departmentEvent.EmployeeId = savedDepartmentEvent.EmployeeId;
+                    departmentEvent.AmountOfEmployee = savedDepartmentEvent.AmountOfEmployee;
+                    departmentEvent.DateOfEvent = savedDepartmentEvent.DateOfEvent;
+                }
+                //Employee employee = emplRepository.AllEmployees.Where(e =>e.EmployeeID == departmentEvent.EmployeeId).FirstOrDefault();
+                //departmentEvent.Employee = employee;
+
                 departmentEventRepository.SaveDepartmentEvent(departmentEvent);
-                //TempData["message"] = $"{employee.FirstName} {employee.LastName} has been saved";
+                TempData["message"] = $"Department Event for {departmentEvent.Employee.FirstName} {departmentEvent.Employee.LastName} was created/updated";
                 return RedirectToAction("Index");
             }
             else
@@ -80,9 +93,14 @@ namespace SPDepartment001.Controllers.Admin
             return RedirectToAction("Index");
         }
 
-        private void PopulateViewBagEmployees()
+        private void PopulateViewBagEmployees(int employeeId = 0)
         {
-            var employeesList = emplRepository.Employees.Select(e => new { FullName = $"{e.FirstName} {e.LastName}", Id = e.EmployeeID });
+            var employeesList = emplRepository.ActiveEmployees.Select(e => new { FullName = $"{e.FirstName} {e.LastName}", Id = e.EmployeeID });
+            if (employeeId > 0 && !employeesList.Any(e => e.Id == employeeId))
+            {
+                var selectedEmployee = emplRepository.AllEmployees.Where(e => e.EmployeeID == employeeId).Select(e => new { FullName = $"{e.FirstName} {e.LastName}", Id = e.EmployeeID });
+                employeesList = employeesList.Union(selectedEmployee);
+            }
             ViewBag.Employees = new SelectList(employeesList, "Id", "FullName");
         }
 

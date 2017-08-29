@@ -16,7 +16,7 @@ namespace SPDepartment001.Models.Data
             context = ctx;
         }
 
-        public IEnumerable<Deposit> Deposits 
+        public IEnumerable<Deposit> Deposits
             => context.Deposits.Include(d => d.Employee).OrderByDescending(d => d.Date);
 
         public void SaveDeposit(Deposit deposit)
@@ -39,7 +39,7 @@ namespace SPDepartment001.Models.Data
                     {
                         context.Deposits.Add(deposit);
                         context.SaveChanges();
-                        
+
                         if (employeeAccount == null)
                         {
                             var newEmployeeAccount = new EmployeeAccount()
@@ -71,6 +71,7 @@ namespace SPDepartment001.Models.Data
             }
             else
             {
+                ////TODO: Update functionality
                 //Deposit dbEntry = context.Deposits
                 //    .FirstOrDefault(d => d.Id == deposit.Id);
                 //if (dbEntry != null)
@@ -89,7 +90,34 @@ namespace SPDepartment001.Models.Data
                 .FirstOrDefault(d => d.Id == depositID);
             if (dbEntry != null)
             {
-                context.Deposits.Remove(dbEntry);
+                EmployeeAccount employeeAccount = context.EmployeesAccounts
+                    .Where(eA => eA.EmployeeId == dbEntry.EmployeeId)
+                    .FirstOrDefault();
+
+                using (var dbContextTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        context.Deposits.Remove(dbEntry);
+                        context.SaveChanges();
+
+                        if (employeeAccount != null)
+                        {
+                            employeeAccount.Amount = employeeAccount.Amount - dbEntry.Amount;
+                            employeeAccount.DateOfLastUpdate = DateTime.Now;
+
+                            context.SaveChanges();
+                        }
+
+                        dbContextTransaction.Commit();
+                    }
+                    catch
+                    {
+                        dbContextTransaction.Rollback();
+                    }
+                }
+
+
                 context.SaveChanges();
             }
             return dbEntry;

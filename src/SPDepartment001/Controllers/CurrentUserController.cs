@@ -45,14 +45,21 @@ namespace SPDepartment001.Controllers
             {
                 currentUserInfo.AppUser = user;
 
-                Employee employee = employeeRepository.Employees.Where(e => e.AssociatedUserId.ToString() == user.Id).FirstOrDefault();
+                Employee employee = employeeRepository.ActiveEmployees.Where(e => e.AssociatedUserId.ToString() == user.Id).FirstOrDefault();
 
                 if (employee != null)
                 {
                     currentUserInfo.Employee = employee;
                     currentUserInfo.EmployeeAccount = employeeAccountRepository.EmployeesAccounts.Where(ea => ea.EmployeeId == employee.EmployeeID).FirstOrDefault();
                     currentUserInfo.Deposits = depositRepository.Deposits.Where(d => d.EmployeeId == employee.EmployeeID).OrderByDescending(d => d.Date);
-                    currentUserInfo.Expenses = expenseRepository.Expenses.Where(e => e.EmployeeId == employee.EmployeeID && !e.IsPaid).OrderByDescending(e => e.DepartmentEvent.DateOfEvent);
+
+                    var expenses = expenseRepository.Expenses.Where(e => e.EmployeeId == employee.EmployeeID && !e.IsPaid);
+                    currentUserInfo.ExpensesInfo = new ExpensesViewModel()
+                    {
+                        Expenses = expenses.OrderByDescending(e => e.DepartmentEvent.DateOfEvent),
+                        TotalExpensesAmount = expenses.Sum(e => e.Amount)
+
+                    };
                 }
             }
 

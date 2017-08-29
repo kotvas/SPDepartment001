@@ -4,6 +4,12 @@
     Layout = "_AdminLayout";
 }
 
+<div class="bg-primary panel-body"><h4>Department Events</h4></div>
+
+<div class="text-center">
+    <a asp-action="Create" class="btn btn-primary">Add Department Event</a>
+</div>
+
 <table class="table table-striped table-bordered table-condensed">
     <tr>
         <th>Employee</th>
@@ -21,8 +27,8 @@
         <tr>
             <td>@item.Employee.FirstName @item.Employee.LastName</td>
             <td>@item.Description</td>
-            <td>@item.DateCreated</td>
-            <td>@item.DateOfEvent</td>
+            <td>@item.DateCreated.ToString("dd/MM/yyyy")</td>
+            <td>@item.DateOfEvent.ToString("dd/MM/yyyy")</td>
             <td>@item.AmountOfEmployee</td>
             <td>@item.AreExpensesGenerated</td>
             <td>
@@ -61,6 +67,3 @@
         </tr>
     }
 </table>
-<div class="text-center">
-    <a asp-action="Create" class="btn btn-primary">Add Department Event</a>
-</div>

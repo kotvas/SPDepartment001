@@ -1,0 +1,9 @@
+C:\Users\kotvas\Source\Repos\SPDepartment001\src\SPDepartment001\bin\Debug\netcoreapp1.0\SPDepartment001.deps.json
+C:\Users\kotvas\Source\Repos\SPDepartment001\src\SPDepartment001\bin\Debug\netcoreapp1.0\SPDepartment001.runtimeconfig.json
+C:\Users\kotvas\Source\Repos\SPDepartment001\src\SPDepartment001\bin\Debug\netcoreapp1.0\SPDepartment001.runtimeconfig.dev.json
+C:\Users\kotvas\Source\Repos\SPDepartment001\src\SPDepartment001\bin\Debug\netcoreapp1.0\SPDepartment001.dll
+C:\Users\kotvas\Source\Repos\SPDepartment001\src\SPDepartment001\bin\Debug\netcoreapp1.0\SPDepartment001.pdb
+C:\Users\kotvas\Source\Repos\SPDepartment001\src\SPDepartment001\obj\Debug\netcoreapp1.0\SPDepartment001.csprojResolveAssemblyReference.cache
+C:\Users\kotvas\Source\Repos\SPDepartment001\src\SPDepartment001\obj\Debug\netcoreapp1.0\SPDepartment001.AssemblyInfo.cs
+C:\Users\kotvas\Source\Repos\SPDepartment001\src\SPDepartment001\obj\Debug\netcoreapp1.0\SPDepartment001.dll
+C:\Users\kotvas\Source\Repos\SPDepartment001\src\SPDepartment001\obj\Debug\netcoreapp1.0\SPDepartment001.pdb

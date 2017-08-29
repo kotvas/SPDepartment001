@@ -28,13 +28,13 @@ namespace SPDepartment001.Controllers.Admin
             userManager = usrMgr;
         }
 
-        public ViewResult Index() => View(repository.Employees.OrderBy(e => e.LastName));
+        public ViewResult Index() => View(repository.AllEmployees.OrderBy(e => e.LastName));
 
         public ViewResult Edit(int employeeId)
         {
             PopulateViewBagUsers();
 
-            return View(repository.Employees.FirstOrDefault(e => e.EmployeeID == employeeId));
+            return View(repository.AllEmployees.FirstOrDefault(e => e.EmployeeID == employeeId));
         }
 
         [HttpPost]

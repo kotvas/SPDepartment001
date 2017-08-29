@@ -18,7 +18,14 @@
     <div class="form-group">
         <label asp-for="DateOfBirth"></label>
         <div><span asp-validation-for="DateOfBirth" class="text-danger"></span></div>
-        <input asp-for="DateOfBirth" class="form-control" />
+        <input asp-for="DateOfBirth" type="date" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="IsActive"></label>
+        <select class="form-control" asp-for="IsActive">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
     </div>
     <div class="form-group">
         <label asp-for="AssociatedUserId"></label>

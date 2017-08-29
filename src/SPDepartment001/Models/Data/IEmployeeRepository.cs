@@ -7,7 +7,8 @@ namespace SPDepartment001.Models.Data
 {
     public interface IEmployeeRepository
     {
-        IEnumerable<Employee> Employees { get; }
+        IEnumerable<Employee> ActiveEmployees { get; }
+        IEnumerable<Employee> AllEmployees { get; }
         void SaveEmployee(Employee employee);
         Employee DeleteEmployee(int employeeId);
     }

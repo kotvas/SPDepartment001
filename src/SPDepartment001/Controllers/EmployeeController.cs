@@ -23,7 +23,7 @@ namespace SPDepartment001.Controllers
         public ViewResult List(int page = 1)
             => View(new EmployeesListViewModel
             {
-                Employees = repository.Employees
+                Employees = repository.AllEmployees
                     .OrderBy(e => e.LastName)
                     .Where(e => e.IsActive)
                     .Skip((page - 1) * PageSize)
@@ -32,7 +32,7 @@ namespace SPDepartment001.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = repository.Employees.Count()
+                    TotalItems = repository.AllEmployees.Count()
                 }
             });
     }

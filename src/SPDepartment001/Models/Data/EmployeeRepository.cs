@@ -15,7 +15,9 @@ namespace SPDepartment001.Models.Data
             context = ctx;
         }
 
-        public IEnumerable<Employee> Employees => context.Employees;
+        public IEnumerable<Employee> ActiveEmployees => context.Employees.Where(e => e.IsActive);
+
+        public IEnumerable<Employee> AllEmployees => context.Employees;
 
         public void SaveEmployee(Employee employee)
         {

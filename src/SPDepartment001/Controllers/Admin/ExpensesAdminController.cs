@@ -137,7 +137,7 @@ namespace SPDepartment001.Controllers.Admin
         {
             DepartmentEvent departmentEvent = departmentEventRepository.DepartmentEvents.Where(dE => dE.Id == departmentEventId).FirstOrDefault();
             IEnumerable<Employee> addedEmployees = expenseRepository.Expenses.Where(e => e.DepartmentEventId == departmentEvent.Id).Select(e => e.Employee);
-            IEnumerable<Employee> notAddedEmployees = emplRepository.Employees.Where(e => e.IsActive && !addedEmployees.Contains(e) && e.EmployeeID != departmentEvent.EmployeeId);
+            IEnumerable<Employee> notAddedEmployees = emplRepository.ActiveEmployees.Where(e => !addedEmployees.Contains(e) && e.EmployeeID != departmentEvent.EmployeeId);
 
             return View(
                 new AddExpensesViewModel()
@@ -159,7 +159,7 @@ namespace SPDepartment001.Controllers.Admin
             foreach (string employeeIdStr in model.IdsToAdd ?? new string[] { })
             {
                 int employeeId = Convert.ToInt32(employeeIdStr);
-                Employee employee = emplRepository.Employees.Where(e => e.EmployeeID == employeeId).FirstOrDefault();
+                Employee employee = emplRepository.ActiveEmployees.Where(e => e.EmployeeID == employeeId).FirstOrDefault();
 
                 if (departmentEvent != null && employee != null)
                 {

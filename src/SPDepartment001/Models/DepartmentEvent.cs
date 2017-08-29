@@ -13,12 +13,12 @@ namespace SPDepartment001.Models
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateCreated { get; set; } = DateTime.Now;
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime DateOfEvent { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfEvent { get; set; } = DateTime.Now;
 
         public decimal AmountOfEmployee { get; set; } = 75;
 

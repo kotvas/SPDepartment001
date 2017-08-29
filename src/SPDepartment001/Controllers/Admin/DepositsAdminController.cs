@@ -70,7 +70,7 @@ namespace SPDepartment001.Controllers.Admin
 
         private void PopulateViewBagEmployees()
         {
-            var employeesList = emplRepository.Employees.Select(e => new { FullName = $"{e.FirstName} {e.LastName}", Id = e.EmployeeID });
+            var employeesList = emplRepository.ActiveEmployees.Select(e => new { FullName = $"{e.FirstName} {e.LastName}", Id = e.EmployeeID });
             ViewBag.Employees = new SelectList(employeesList, "Id", "FullName");
         }
     }

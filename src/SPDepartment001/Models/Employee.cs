@@ -18,7 +18,6 @@ namespace SPDepartment001.Models
 
         [Required(ErrorMessage = "Please enter a date of birth")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
         public bool IsActive { get; set; } = true;

@@ -12,6 +12,6 @@ namespace SPDepartment001.Models.ViewModels
         public Employee Employee { get; set; }
         public EmployeeAccount EmployeeAccount { get; set; }
         public IEnumerable<Deposit> Deposits { get; set; }
-        public IEnumerable<Expense> Expenses { get; set; }
+        public ExpensesViewModel ExpensesInfo { get; set; }
     }
 }
